@@ -1,0 +1,528 @@
+#fullpage { /*sets max width to 63em, creates whitespace otherwise*/
+    max-width: 100em;
+    margin: auto;
+}
+*, *:before, *:after { /*allows for border boxes, I commented them but left this for guides*/
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+   
+}  
+    /*Begin CSS Reset*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+} 
+/*end CSS reset*/
+
+img { /*sets maxes for pics*/
+    max-width: 600px;
+    max-height: 450px;
+}
+
+* {
+  outline: none;
+}
+
+.page { /*good practice for responsive page design*/
+  width: 100%; 
+}
+
+#nav-container { /*creates nav container*/
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  pointer-events: none;
+}
+#nav-container .bg { /*creates nav container background*/
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 70px);
+  visibility: hidden;
+  opacity: 0;
+  transition: .3s;
+  background: #000;
+  z-index: 8;
+}
+#nav-container:focus-within .bg { /*see through container*/
+  visibility: visible;
+  opacity: .6;
+}
+#nav-container * {
+  visibility: visible;
+}
+
+.button { /*creates the "burger" in the top left of the navbar*/
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  pointer-events: auto;
+  margin-left: 25px;
+  bottom: 22px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.icon-bar {
+  display: block;
+  width: 100%;
+  height: 4px;
+  background: rgb(0, 0, 0);
+  transition: .4s;
+}
+.icon-bar + .icon-bar {
+  margin-top: 5px;
+}
+/*creates 'animation' for burger into X, fades center line, crosses top and bottom*/
+#nav-container:focus-within .button {
+  pointer-events: none;
+}
+#nav-container:focus-within .icon-bar:nth-of-type(1) {
+  transform: translate3d(0,8px,0) rotate(45deg);
+}
+#nav-container:focus-within .icon-bar:nth-of-type(2) {
+  opacity: 0;
+}
+#nav-container:focus-within .icon-bar:nth-of-type(3) {
+  transform: translate3d(0,-8px,0) rotate(-45deg);
+}
+
+#nav-content { /*actual navigation box props*/
+  margin-top: 50px;
+  width: 90%;
+  max-width: 400px;
+  position: absolute;
+  top: 0;
+  left: -9px;
+  height: 100%;
+  background: rgba(255,255,255, 0.8);
+  pointer-events: auto;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  transform: translateX(-155%);
+  transition: transform .3s;
+  will-change: transform;
+  contain: paint;
+  z-index: 9;
+}
+
+#nav-content ul {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#nav-content li a {
+  padding: 10px 5px;
+  display: block;
+  text-transform: uppercase;
+  transition: color .1s;
+}
+
+#nav-content li a:hover {
+  color: rgb(112, 16, 16);
+  font-size: 104%;
+  font-weight: 900;
+}
+
+#nav-content li:not(.small) + .small {
+  margin-top: auto;
+}
+
+.small {
+  display: flex;
+  align-self: center;
+}
+
+.small a {
+  font-size: 12px;
+  font-weight: 400;
+  color: #888;
+}
+.small a + a {
+  margin-left: 15px;
+}
+
+#nav-container:focus-within #nav-content {
+  transform: none;
+}
+
+a,
+a:visited,
+a:focus,
+a:active,
+a:link {
+  text-decoration: none;
+  outline: 0;
+}
+
+a {
+  color: currentColor;
+  transition: .2s ease-in-out;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+h1,h2,h3,h4,h5,h6 { /*sets all text to font family except paragraph*/
+    margin: 1em 0;
+    font-family: 'Satisfy', cursive;
+}
+body { /*creates the rest of the body props*/
+    line-height: 1;
+    background-color: white;
+   /* -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    -o-hyphens: auto;
+    hyphens: auto; */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-family: 'Manjari', sans-serif;
+}
+/* code {
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    -o-hyphens: none;
+    hyphens: none; 
+} */
+ol, ul { /*takes away actual list #'s and '.'*/
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+} 
+article, aside, footer { 
+    /*border: 1px solid black; */ 
+    padding: 10px 1em;
+    margin: 0 1% 10px; 
+}
+header { /*general props*/
+    padding: 10px;
+    background-image: url("https://www.edinburghmuseums.org.uk/sites/default/files/styles/mge_banner/public/EdwinGLucas-The_Schism_-_Final_Diagnosis-1940-detail%20%281%29.jpg?itok=uyVi9CT0");
+    background-position: center top;
+    display: flex;
+    align-items: center;
+    z-index: 9;
+}
+h1 { /*general props*/
+    font-size: 4em;
+    font-weight: 900;
+    margin: 5px 0;
+    text-align: center;
+    color:rgb(163, 153, 142);
+    position: relative;
+    text-shadow: 3px 3px #000000;
+}
+h2 { /*general props*/
+    font-size: 1.75em;
+    font-weight: bold;
+    margin: 5px 0;
+    text-align: center;
+    padding-bottom: 10px;
+}
+h3 { /*general props*/
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    position: inherit;
+    bottom: -12px;
+    color: black;
+}
+nav { /*general props*/
+    font-size: 1.5em;
+    position: absolute;
+}
+ul { /*general props*/
+    list-style-type: disc;
+    margin: 10px 0;
+    padding-left: 10px;
+    font-size: 2em;
+}
+p { /*general props*/
+    text-align: justify;
+    font-size: 1.35em;
+    margin: 5px 0;
+}
+
+.carousel-caption { /*just to put this under the nav menu*/
+    position: inherit;
+    z-index: 1;
+}
+
+.carousel-inner img { /*props for carousel images, lowest z index so it appears behind stuff*/
+    width: 70%;
+    height: 100%;
+    align-content: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: -1;
+}
+.content {
+  padding: 16px;
+
+}
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 102px;
+}
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 90%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/*begin responsive cascading CSS*/
+@media only screen and (min-width: 45em) { /*responsive*/
+article {
+    float: left;
+    width: 64%;
+    margin-right: 0;
+}
+aside {
+    float: right;
+    width: 33%;
+    margin-left: 0;
+}
+footer {
+    clear: both;
+}
+
+article img {
+    padding-left: 0;
+    padding-bottom: 10px;
+    min-width: 80%;
+    max-width: 90%;
+    position: inherit;
+}
+p {
+    text-align: justify;
+    font-size: 1.75em;
+    margin: 5px 0;
+}
+
+h3 {
+    right: 120px;
+    bottom: 30px;
+}
+}
+@media only screen and (min-width: 1250px) { /*responsive*/
+h1 {
+    right: 30%;
+}  
+header {
+    height: 100px;
+}
+}
+@media only screen and (max-width: 700px) {
+h1 {
+    font-size: 1.6em;
+}
+h2 {
+  font-size: 1.4em;
+}
+h3 {
+    font-size: 1.2em;
+    right: 60px;
+}
+p {
+    text-align: justify;
+    font-size: 1em;
+    margin: 5px 0;
+}
+}
+@media only screen and (max-width: 40em) { /*responsive*/
+article img {
+    width: auto;
+    padding-left: 0;
+    align-content: center;
+    max-width:100%;
+    position: inherit;
+}
+#nav-container .bg {
+  position: absolute;
+  top: 27px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 70px);
+  visibility: hidden;
+  opacity: 0;
+  transition: .3s;
+  background: #000;
+}
+#nav-content {
+  margin-top: 27px;
+}
+.button {
+    margin-left: 0px;
+}
+header {
+    height: 55px;
+    opacity: 80%;
+}
+img {
+    max-height: 220px;
+    max-width: 500px;
+}
+h1 {
+    font-size: 1.7em;
+}
+h2 {
+  font-size: 1.5em;
+}
+h3 {
+    font-size: 1.2em;
+    right: 60px;
+}
+p {
+    text-align: justify;
+    font-size: 1em;
+    margin: 5px 0;
+}
+#vid {
+    font-size: 1.75em;
+}
+.form {
+    padding: 0px 5px 0px 5px; 
+    max-width: 100%;
+}
+}
+@media only screen and (min-width: 100em) {
+    .sticky {
+    width: 100em;
+}
+}
+/*end responsive code*/
